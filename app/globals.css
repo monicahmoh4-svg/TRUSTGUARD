@@ -1,0 +1,113 @@
+/* app/globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #0a0c10;
+  --bg-2: #111318;
+  --bg-3: #181c22;
+  --bg-4: #1e232b;
+  --border: #2a2f3a;
+  --border-2: #3a404d;
+  --text: #e8eaf0;
+  --text-2: #9aa0b0;
+  --text-3: #5a6070;
+  --green: #00d68f;
+  --green-2: #00a86b;
+  --green-3: #003d28;
+  --amber: #f5a623;
+  --amber-2: #c4841c;
+  --amber-3: #3d2800;
+  --red: #ff4d4d;
+  --red-2: #cc3333;
+  --red-3: #3d0000;
+  --blue: #4d9fff;
+  --blue-2: #2d7fd4;
+  --blue-3: #001833;
+  --purple: #a855f7;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-dm-sans), 'DM Sans', system-ui, sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--border-2); }
+
+/* Animations */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+@keyframes slide-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes scan-bar {
+  0% { width: 0; margin-left: 0; }
+  50% { width: 60%; margin-left: 20%; }
+  100% { width: 0; margin-left: 100%; }
+}
+
+@keyframes blink {
+  0%, 60%, 100% { opacity: 0.15; }
+  30% { opacity: 1; }
+}
+
+.animate-slide-in { animation: slide-in 0.3s ease; }
+.animate-fade-in { animation: fade-in 0.3s ease; }
+.animate-spin { animation: spin 0.6s linear infinite; }
+
+/* Mono font utility */
+.font-mono-custom {
+  font-family: var(--font-space-mono), 'Space Mono', monospace;
+}
+
+/* Score ring transition */
+.score-ring-circle {
+  transition: stroke-dashoffset 1.2s cubic-bezier(0.4, 0, 0.2, 1),
+              stroke 0.5s ease;
+}
+
+/* Custom focus ring */
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 214, 143, 0.2);
+}
+
+/* Prose for AI output */
+.ai-prose p { margin-bottom: 0.75rem; }
+.ai-prose p:last-child { margin-bottom: 0; }
+.ai-prose strong { color: var(--text); font-weight: 600; }
+.ai-prose code {
+  font-family: var(--font-space-mono), monospace;
+  font-size: 0.85em;
+  background: var(--bg-3);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
