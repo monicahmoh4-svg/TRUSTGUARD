@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "framework": "nextjs",
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "regions": ["iad1"],
+  "env": {
+    "ANTHROPIC_API_KEY": "@anthropic-api-key",
+    "ETHERSCAN_API_KEY": "@etherscan-api-key",
+    "ALCHEMY_API_KEY": "@alchemy-api-key"
+  },
+  "functions": {
+    "app/api/analyze/route.ts": { "maxDuration": 60 },
+    "app/api/contract/route.ts": { "maxDuration": 60 },
+    "app/api/social/route.ts": { "maxDuration": 30 },
+    "app/api/identity/route.ts": { "maxDuration": 60 },
+    "app/api/portfolio/route.ts": { "maxDuration": 60 },
+    "app/api/chat/route.ts": { "maxDuration": 30 }
+  }
+}
