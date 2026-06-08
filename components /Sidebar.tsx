@@ -56,8 +56,6 @@ export default function Sidebar() {
           </button>
         </div>
       ))}
-
-      {/* Engine status */}
       <div className="mt-auto pt-3 border-t border-[var(--border)]">
         <div className="text-[10px] font-semibold uppercase tracking-[0.8px] text-[var(--text-3)] px-3 mb-2">
           System Status
