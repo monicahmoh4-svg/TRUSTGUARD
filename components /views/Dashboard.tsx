@@ -2,7 +2,7 @@
 'use client';
 import { useEffect, useState, useCallback } from 'react';
 import { useAppStore } from '@/lib/store';
-import { Card, CardHeader, CardTitle, ScoreRing, RiskBar, AlertItem, Badge, LiveDot, Button } from '@/components/ui';
+import { Card, CardHeader, CardTitle, ScoreRing, RiskBar, AlertItem, Badge, LiveDot, Button } from '@/components/ui/index';
 import { formatDistanceToNow } from 'date-fns';
 
 const METRIC_CARDS = [
@@ -32,7 +32,6 @@ export default function Dashboard() {
   const [txFeed, setTxFeed] = useState(LIVE_TXS);
   const [riskScores] = useState({ total: 55, behavioral: 42, contract: 71, social: 28, identity: 61 });
 
-  // Fetch alerts
   const fetchAlerts = useCallback(async () => {
     try {
       const res = await fetch('/api/alerts');
@@ -47,7 +46,6 @@ export default function Dashboard() {
     return () => clearInterval(interval);
   }, [fetchAlerts]);
 
-  // Simulate live TX updates
   useEffect(() => {
     const interval = setInterval(() => {
       const sample = LIVE_TXS[Math.floor(Math.random() * LIVE_TXS.length)];
@@ -74,7 +72,6 @@ export default function Dashboard() {
         <Button variant="ghost" onClick={fetchAlerts} size="sm">↻ Refresh</Button>
       </div>
 
-      {/* Metric cards */}
       <div className="grid grid-cols-4 gap-3 mb-4">
         {METRIC_CARDS.map((m) => (
           <Card key={m.key} accentColor={m.color}>
@@ -88,7 +85,6 @@ export default function Dashboard() {
       </div>
 
       <div className="grid grid-cols-2 gap-4 mb-4">
-        {/* Risk Score Engine */}
         <Card>
           <CardHeader>
             <CardTitle>Risk Score Engine</CardTitle>
@@ -108,7 +104,6 @@ export default function Dashboard() {
           </div>
         </Card>
 
-        {/* Live TX Feed */}
         <Card>
           <CardHeader>
             <CardTitle>Live Transaction Feed</CardTitle>
@@ -116,25 +111,12 @@ export default function Dashboard() {
           </CardHeader>
           <div className="space-y-1.5 max-h-[320px] overflow-y-auto pr-1">
             {txFeed.map((tx, i) => {
-              const scoreColor = tx.type === 'danger' ? 'var(--red)' : tx.type === 'warning' ? 'var(--amber)' : 'var(--green)';
+              const sc = tx.type === 'danger' ? 'var(--red)' : tx.type === 'warning' ? 'var(--amber)' : 'var(--green)';
               return (
-                <div
-                  key={i}
-                  className="flex items-center gap-2 p-2 bg-[var(--bg-3)] rounded-[6px] text-[12px] border border-transparent hover:border-[var(--border-2)] transition-all cursor-pointer animate-slide-in"
-                >
+                <div key={i} className="flex items-center gap-2 p-2 bg-[var(--bg-3)] rounded-[6px] text-[12px] border border-transparent hover:border-[var(--border-2)] transition-all cursor-pointer animate-slide-in">
                   <div className="font-mono-custom text-[var(--text-2)] flex-1 truncate text-[11px]">{tx.addr}</div>
-                  <div
-                    className="font-semibold font-mono-custom flex-shrink-0"
-                    style={{ color: tx.amount.startsWith('-') ? 'var(--red)' : 'var(--green)' }}
-                  >
-                    {tx.amount}
-                  </div>
-                  <div
-                    className="w-9 h-5 rounded flex items-center justify-center text-[11px] font-bold font-mono-custom flex-shrink-0"
-                    style={{ background: `${scoreColor}22`, color: scoreColor }}
-                  >
-                    {tx.score}
-                  </div>
+                  <div className="font-semibold font-mono-custom flex-shrink-0" style={{ color: tx.amount.startsWith('-') ? 'var(--red)' : 'var(--green)' }}>{tx.amount}</div>
+                  <div className="w-9 h-5 rounded flex items-center justify-center text-[11px] font-bold font-mono-custom flex-shrink-0" style={{ background: `${sc}22`, color: sc }}>{tx.score}</div>
                 </div>
               );
             })}
@@ -142,22 +124,15 @@ export default function Dashboard() {
         </Card>
       </div>
 
-      {/* Recent Alerts */}
       <Card>
         <CardHeader>
           <CardTitle>Recent Alerts</CardTitle>
           <span className="text-[11px] text-[var(--text-3)]">{alerts.length} total</span>
         </CardHeader>
         {alerts.slice(0, 4).map((a) => (
-          <AlertItem
-            key={a.id}
-            type={a.type}
-            title={a.title}
-            description={a.description}
+          <AlertItem key={a.id} type={a.type} title={a.title} description={a.description}
             time={formatDistanceToNow(new Date(a.timestamp), { addSuffix: true })}
-            source={a.source}
-            riskScore={a.riskScore}
-          />
+            source={a.source} riskScore={a.riskScore} />
         ))}
         {alerts.length === 0 && (
           <div className="text-[12px] text-[var(--text-3)] py-4 text-center">No alerts yet. Fetching...</div>
