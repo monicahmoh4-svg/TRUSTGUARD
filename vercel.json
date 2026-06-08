@@ -5,11 +5,6 @@
   "devCommand": "npm run dev",
   "installCommand": "npm install",
   "regions": ["iad1"],
-  "env": {
-    "ANTHROPIC_API_KEY": "@anthropic-api-key",
-    "ETHERSCAN_API_KEY": "@etherscan-api-key",
-    "ALCHEMY_API_KEY": "@alchemy-api-key"
-  },
   "functions": {
     "app/api/analyze/route.ts": { "maxDuration": 60 },
     "app/api/contract/route.ts": { "maxDuration": 60 },
