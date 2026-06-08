@@ -1,7 +1,7 @@
 // components/Sidebar.tsx
 'use client';
 import { useAppStore, type View } from '@/lib/store';
-import { LiveDot } from './ui';
+import { LiveDot } from '@/components/ui/index';
 import { clsx } from 'clsx';
 
 const NAV_ITEMS: { id: View; label: string; icon: string; section?: string }[] = [
