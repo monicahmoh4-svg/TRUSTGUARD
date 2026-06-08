@@ -1,6 +1,6 @@
 // components/Sidebar.tsx
 'use client';
-import { useAppStore, type View } from '@/lib/store';
+import { LiveDot, Badge } from '@/components/ui/index';
 import { LiveDot } from '@/components/ui/index';
 import { clsx } from 'clsx';
 
