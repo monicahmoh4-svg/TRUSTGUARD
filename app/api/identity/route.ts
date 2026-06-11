@@ -17,12 +17,12 @@ export async function POST(req: NextRequest) {
     const walletData = await getWalletData(address, chain);
 
     // Build connected address list from transaction history
-    const connectedAddresses = [
-      ...new Set([
-        ...walletData.transactions.map(tx => tx.from),
-        ...walletData.transactions.map(tx => tx.to),
-      ].filter(a => a && a.toLowerCase() !== address.toLowerCase())),
-    ].slice(0, 20);
+    const allAddresses = [
+      ...walletData.transactions.map(tx => tx.from),
+      ...walletData.transactions.map(tx => tx.to),
+    ].filter(a => a && a.toLowerCase() !== address.toLowerCase());
+
+    const connectedAddresses = Array.from(new Set(allAddresses)).slice(0, 20);
 
     // Compute tx patterns summary
     const outbound = walletData.transactions.filter(tx => tx.from.toLowerCase() === address.toLowerCase());
